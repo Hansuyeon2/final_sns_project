@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="detail">
+    <h3> {{ blog.writer }} </h3> 
+    <h2>날짜 : {{blog.pub_date}}</h2> <br>
+    <h1>{{blog.title}}</h1>
+    <h2>장르 : {{blog.genre}}</h2>
+    <h2>평점:{{blog.test_list}}</h2>
+    <h2>한줄평 : {{blog.summary}}</h2>
+    
+    
+       
+
+    {% if blog.image %}
+        <div class="photo"><img src="{{ blog.image.url }}" alt="사진" width="200" height="300"> </div>
+    {% endif %}    
+    <p>{{blog.body}}</p>
+    <button style="background-color:#336491; border: #336491; color:white;
+    width: 80px;height: 40px;font-size:15px;position:relative;top:50px;" ><a href="{%url 'edit' blog.id%}" style="text-decoration: none;color:white;">수정하기</a></button>
+    <button style="background-color:#336491; border: #336491; color:white;
+    width: 80px;height: 40px;font-size:15px;position:relative;top:50px; left:5px;"><a href="{%url 'delete' blog.id%}" style="text-decoration: none;color:white;">삭제하기</a></button>
+    
+<div class="comment">
+   <div>
+     <form action="{%url 'create_comment' blog.id%}" method="POST">
+      {%csrf_token%}
+      <textarea name="content" placeholder="댓글내용입력" style="width:800px;height:90px;border: 2px solid #000000;" ></textarea>
+      <input type="submit" value="확인" style="background-color:#336491; border: #336491; color:white;
+      width: 80px;height: 40px;font-size:15px; position:relative; left:30px; top:-10px">
+     </form>
+    </div>
+
+    <div>
+    {% for comment in comments %}
+    <div>
+    {{comment.writer}}
+    <br>
+    {{comment.content}}
+    <br><hr>
+    </div>
+    {% endfor %}
+    </div>
+
+</div>
+</div>
+{% endblock %}   

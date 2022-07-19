@@ -1,0 +1,184 @@
+/*--------------------------------------------------------------
+# 디테일 페이지
+--------------------------------------------------------------*/
+.detail h3{
+    color: #336491;
+    font-size: 20px;
+    }
+
+.detail h1{
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.detail p{
+    font-size: 20px;
+}
+
+.detail h2{
+    font-size: 15px;
+    color: gray;
+}
+
+.detail {
+    position: absolute;
+    top: 130px;
+    left: 50px;
+}
+
+.detail .photo {
+    position: absolute;
+    top: 30px;
+    left: 500px;
+    }
+ 
+ 
+/*--------------------------------------------------------------
+#  표
+--------------------------------------------------------------*/    
+.movie{    
+        border:none;border-collapse:collapse;border-color:#ccc;border-spacing:0;
+        width: 1280px;
+        font-size: 30px;
+        
+    }
+
+.movie td{
+        background-color:#fff;border-color:#ccc;border-style:solid;
+        border-width:0px;color:black;
+        overflow:hidden;padding:10px 5px;word-break:normal;
+        text-align: center;
+       
+    }
+
+.movie th{
+      background-color:#336491;border-color:#ccc;border-style:solid;border-width:0px;color:white;
+      font-weight:normal;
+      overflow:hidden;
+      padding:10px 5px;
+      word-break:normal;
+      text-align: center;
+      font-family: 'Gowun Dodum', sans-serif;  }
+
+
+
+
+/*--------------------------------------------------------------
+#  메인페이지
+--------------------------------------------------------------*/
+.main {
+    position: absolute;
+    top: 150px;
+    left: 0px;
+}
+/*--------------------------------------------------------------
+# 글쓰기 페이지(new,edit)
+--------------------------------------------------------------*/
+.write {
+    position: absolute;
+    top: 150px;
+    left: 50px;
+}
+
+
+
+/*--------------------------------------------------------------
+# 로그인 정렬 
+--------------------------------------------------------------*/
+
+.로그인 .로그아웃 {
+     position:absolute; 
+     top:55px;
+     left:1070px;
+       }
+
+.로그인 .로그인하세요 {
+     position:absolute; 
+     left: 10px; 
+     top: -40px;
+     color: black;
+}    
+
+.로그인 .닉네임 {
+    position:absolute; 
+    top:17px;
+    left:1070px;
+    color: black;
+}    
+
+
+
+.로그인 .회원가입 {
+    position:absolute; 
+    top:55px;
+    left:1070px;
+      
+      
+    }    
+
+.네비바_movie
+{
+    position:absolute;
+    top:35px;
+    left: 450px;
+    font-weight:bold;
+    font-size: 30px;
+    text-decoration: none;
+    color: #336491;
+    
+}
+
+.네비바_movie:hover
+{
+    color:#578BBC;
+}
+
+.네비바_picture
+
+{
+    position:absolute;
+    top:35px;
+    left: 800px;
+    font-size: 30px;
+    text-decoration: none;
+    color:#336491;
+    font-weight:bold;
+}
+
+.네비바_picture:hover
+{
+    color:#578BBC;
+}
+
+
+/*--------------------------------------------------------------
+# 댓글
+--------------------------------------------------------------*/
+
+.comment {
+    position: relative;
+    top: 90px;
+}
+
+.comment .textarea {
+    width:800px;
+    height:50px;
+    border: 2px solid #000000;
+}
+
+.그림{
+    position:absolute;
+    left:470px;
+    top:200px;
+}
+
+.수련{
+    text-decoration: none;color:#336491;vertical-align: middle;
+    font-family: 'Gowun Dodum', sans-serif;
+}
+
+.수련:hover
+{
+    color:#578BBC;
+    font-family: 'Gowun Dodum', sans-serif;
+}

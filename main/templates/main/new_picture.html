@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="write">
+<form action="{% url 'post_create' %}" method="post" enctype="multipart/form-data">
+    {%csrf_token%}
+    <p>제목 : <input type="text" name="title" style="width:800px;height:50px;border: 2px solid #000000;" ></p>
+    <p>사진 : <input type="file" name="image"></p>
+    <p>내용 : <textarea type="text" name="body" id="" placeholder="로그인해야 글쓰기 제출이 완료됩니다" style="width:800px;height:278px;border: 2px solid #000000;"></textarea> </p>
+    <button type="submit" style="background-color:#336491; border: #336491; color:white;
+     width: 80px;height: 40px;font-size:15px; position:absolute; left:870px;top: 450px;">완료</button>
+</form>
+</div>
+
+{% endblock %}
