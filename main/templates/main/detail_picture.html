@@ -12,7 +12,7 @@
     {% if post.image %}
     <div class="photo"><img src="{{ post.image.url }}" alt="사진" width="300" height="250"> </div>
     {% endif %}
-    <p>{{post.body}}</p>
+    <p>{{post.body|linebreaksbr}}</p>
     <button style="background-color:#336491; border: #336491; color:white;
     width: 80px;height: 40px;font-size:15px;position:relative;top:50px;"><a href="{%url 'post_edit' post.id%}"
             style="text-decoration: none;color:white;">수정하기</a></button>

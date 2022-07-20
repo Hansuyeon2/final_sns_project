@@ -6,11 +6,11 @@
     <form action="{% url 'update' blog.id %}" method="post" enctype="multipart/form-data">
         {%csrf_token%}
         <p>영화/연극 제목 : <input type="text" name="title" value="{{blog.title}}"
-                style="width:800px;height:50px;border: 2px solid #000000;"></p>
+                style="width:800px;height:30px;border: 2px solid #000000;"></p>
         <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            장르: <input type="text" name="genre" style="width:800px;height:50px;border: 2px solid #000000;" ></p>
+            장르: <input type="text" name="genre" style="width:800px;height:30px;border: 2px solid #000000;" ></p>
         <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            한줄 요약: <input type="text" name="summary" style="width:800px;height:50px;border: 2px solid #000000;" ></p>
+            한줄 요약: <input type="text" name="summary" style="width:800px;height:30px;border: 2px solid #000000;" ></p>
         <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             사진 : <input type="file" name="image" value="{{blog.image}}"></p>
         <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -25,7 +25,7 @@
             내용 : <textarea type="text" name="body" id="" placeholder="로그인해야 글쓰기 제출이 완료됩니다"
                 style="width:800px;height:278px;border: 2px solid #000000;">{{blog.body}}</textarea> </p>
         <button type="submit" style="background-color:#336491; border: #336491; color:white;
-    width: 80px;height: 40px;font-size:15px; position:absolute; left:870px;top: 500px;">완료</button>
+    width: 80px;height: 40px;font-size:15px; position:absolute; left:900px;top: 540px;">완료</button>
     </form>
 </div>
 
