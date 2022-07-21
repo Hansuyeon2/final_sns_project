@@ -5,7 +5,8 @@ from django.utils import timezone
 from django.core.paginator import Paginator
 # Create your views here.
 
-
+def introduce(request):
+    return render(request, 'main/introduce.html')
 
 def movie(request) :
     blogs = Blog.objects.all()

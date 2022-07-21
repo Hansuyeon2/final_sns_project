@@ -182,3 +182,24 @@
     color:#578BBC;
     font-family: 'Gowun Dodum', sans-serif;
 }
+
+
+/*--------------------------------------------------------------
+# 자기소개 페이지
+--------------------------------------------------------------*/
+
+.container{
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory ;
+}
+.sec{
+    position:relative; 
+    width:100%; 
+    height:100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    scroll-snap-align: center;
+}
+
+

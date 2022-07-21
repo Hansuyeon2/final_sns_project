@@ -21,7 +21,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.movie, name="movie"),
+    path('',views.introduce,name="introduce"),
+    path('movie/', views.movie, name="movie"),
     path('picture/', views.picture, name="picture"),
     path('detail/<int:id>/',views.detail, name="detail"),
     path('post_detail/<int:id>/',views.post_detail, name="post_detail"),
