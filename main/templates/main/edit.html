@@ -3,25 +3,24 @@
 {% block content %}
 
 <div class="write">
-    <form action="{% url 'update' blog.id %}" method="post" enctype="multipart/form-data">
+    <form action="{% url 'main:update' blog.id %}" method="post" enctype="multipart/form-data">
         {%csrf_token%}
-        <p>영화/연극 제목 : <input type="text" name="title" value="{{blog.title}}"
+        <p>영화 제목 : <input type="text" name="title" value="{{blog.title}}"
                 style="width:800px;height:30px;border: 2px solid #000000;"></p>
-        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             장르: <input type="text" name="genre" style="width:800px;height:30px;border: 2px solid #000000;" ></p>
-        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            한줄 요약: <input type="text" name="summary" style="width:800px;height:30px;border: 2px solid #000000;" ></p>
-        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <p>한줄 요약: <input type="text" name="summary" style="width:800px;height:30px;border: 2px solid #000000;" ></p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             사진 : <input type="file" name="image" value="{{blog.image}}"></p>
-        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            평점 :<input type="checkbox" name="test_list" value="&#128011"> &#128011
-            <input type="checkbox" name="test_list" value="&#128011 &#128011 ">  &#128011 &#128011
-            <input type="checkbox" name="test_list" value="&#128011 &#128011 &#128011"> &#128011 &#128011 &#128011
-            <input type="checkbox" name="test_list" value="&#128011 &#128011 &#128011 &#128011"> &#128011 &#128011 &#128011 &#128011
-            <input type="checkbox" name="test_list" value="&#128011 &#128011 &#128011 &#128011 &#128011 "> &#128011 &#128011 &#128011 &#128011 &#128011
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            평점 :&nbsp;<input type="checkbox" name="test_list" value="⭐"> ⭐
+            &nbsp;<input type="checkbox" name="test_list" value="⭐ ⭐ ">  ⭐ ⭐
+            &nbsp;<input type="checkbox" name="test_list" value="⭐ ⭐ ⭐"> ⭐ ⭐ ⭐
+            &nbsp;<input type="checkbox" name="test_list" value="⭐ ⭐ ⭐ ⭐"> ⭐ ⭐ ⭐ ⭐
+            &nbsp; <input type="checkbox" name="test_list" value="⭐ ⭐ ⭐ ⭐ ⭐ "> ⭐ ⭐ ⭐ ⭐ ⭐
             
         </div>
-        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             내용 : <textarea type="text" name="body" id="" placeholder="로그인해야 글쓰기 제출이 완료됩니다"
                 style="width:800px;height:278px;border: 2px solid #000000;">{{blog.body}}</textarea> </p>
         <button type="submit" style="background-color:#336491; border: #336491; color:white;

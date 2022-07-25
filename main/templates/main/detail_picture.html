@@ -14,16 +14,16 @@
     {% endif %}
     <p>{{post.body|linebreaksbr}}</p>
     <button style="background-color:#336491; border: #336491; color:white;
-    width: 80px;height: 40px;font-size:15px;position:relative;top:50px;"><a href="{%url 'post_edit' post.id%}"
+    width: 80px;height: 40px;font-size:15px;position:relative;top:50px;"><a href="{%url 'main:post_edit' post.id%}"
             style="text-decoration: none;color:white;">수정하기</a></button>
     <button style="background-color:#336491; border: #336491; color:white;
-    width: 80px;height: 40px;font-size:15px;position:relative;top:50px;left:5px;"><a href="{%url 'post_delete' post.id%}"
+    width: 80px;height: 40px;font-size:15px;position:relative;top:50px;left:5px;"><a href="{%url 'main:post_delete' post.id%}"
             style="text-decoration: none;color:white;">삭제하기</a></button>
 
 
     <div class=comment>
         <div>
-            <form action="{%url 'create_comment2' post.id%}" method="POST">
+            <form action="{%url 'main:create_comment2' post.id%}" method="POST">
                 {%csrf_token%}
                 <textarea name="content" placeholder="댓글내용입력" style="width:800px;height:90px;border: 2px solid #000000;"></textarea>
                 <input type="submit" value="확인"style="background-color:#336491; border: #336491; color:white;

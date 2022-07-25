@@ -5,13 +5,15 @@
 
 
 <div class="main">
+  <center>
+    <h1><br><br><br></h1>
   <table class="movie">
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Gaegu&family=Gowun+Dodum&display=swap');
       </style>
     <thead>
       <tr>
-        <th class="title">영화/연극 제목</th>
+        <th class="title">영화 제목</th>
         <th class="genre">장르</th>
         <th class="score">평점</th>
         <th class="summary">한줄평</th>
@@ -20,7 +22,7 @@
     <tbody>
       {% for blog in blogs %}
       <tr>
-        <td class="제목"><a href="{% url 'detail' blog.id %}"
+        <td class="제목"><a href="{% url 'main:detail' blog.id %}"
             style="text-decoration: none;color:black;">{{blog.title}}</a></td>
         <td class="장르">{{blog.genre}}</td>    
         <td class="평점">{{blog.test_list}}</td>
@@ -29,12 +31,13 @@
       {%endfor%}
     </tbody>
   </table>
+  </center>
   <div class="button">
     <button style="background-color:#336491; border: #336491; color:white;
-                  width: 100px;height: 60px;font-size:25px; position:absolute; top:200px; left:1150px;"><a href="{% url 'new' %}"
-        style="text-decoration: none;color:white;">글쓰기</a></button>
+                  width: 80px;height: 40px;font-size:25px; position:relative; top: 20px;left:90%"><a href="{% url 'main:new' %}"
+        style="text-decoration: none;color:white; font-family:'Gowun Dodum', sans-serif; font-size:20px;">글쓰기</a></button>
   </div>
+</div>
 
-  <div>
 
     {% endblock %}
