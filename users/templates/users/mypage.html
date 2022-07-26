@@ -23,7 +23,7 @@
      <h5> ♡ 내가 좋아요 누른 글 ♡ </h5>
      <section class="mine">
             {% for like in like_list %}
-            <a href="#" style="text-decoration:none;color:black;">{{ like.post.title }}</a><br>
+            <a href="{% url 'main:detail' like.post.id %}" style="text-decoration:none;color:black;">{{ like.post.title }}</a><br>
             {% endfor %}
      </section>
     </div>  

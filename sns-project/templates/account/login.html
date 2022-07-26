@@ -2,6 +2,7 @@
 
 {% load i18n %}
 {% load account socialaccount %}
+{% providers_media_js %}
 
 {% block head_title %}{% trans "Log In" %}{% endblock %}
 
@@ -17,12 +18,11 @@
 <br><br>
 <div class="container" style="height:100vh">
   <div class="row justify-content-center h-100">
-      <div class="col align-self-center text-center card text-balack bg-jellyho my-3" style="max-width: 25rem;">
+      <div class="col align-self-center text-center card text-black bg-jellyho my-3" 
+      style="max-width: 25rem;background-color:rgba( 255, 255, 255, 0 );border:10px;">
         <br>
-       <h1 style="font-family: 'Staatliches', cursive;color:#336491;">SUYEON'S BLOG</h1>
+       <h1 style="font-family: 'Staatliches', cursive;color:#336491;text-shadow: 3px 3px #97b6d3;font-weight:bolder;">SUYEON'S BLOG</h1>
         <div class="card-body">
-
-          {% get_providers as socialaccount_providers %}
 
           
           <form class="login" method="POST" action="{% url 'account_login' %}">
@@ -34,23 +34,48 @@
            <div style="float:center;">
             <button class="primaryAction" type="submit" 
             style="background-color:#336491; border: #336491; color:white;
-            width: 60px;height: 20px;font-size:11px;">로그인</button>
+            width:147px;height: 30px;font-size:13px;">로그인</button>
           </form>
 
           <button class="primaryAction" type="submit"
           style="background-color:#336491; border: #336491; color:white;
-          width: 60px;height: 20px;font-size:11px;"><a href="{{ signup_url }}" style="text-decoration:none;color:white">회원가입</a></button>
+          width: 147px;height: 30px;font-size:13px;"><a href="{{ signup_url }}" style="text-decoration:none;color:white">회원가입</a></button>
           </div>
+
+          {% get_providers as socialaccount_providers %}
           {% if socialaccount_providers %}
 
           <div class="my-2">
+            
+            {% load socialaccount %}
+
+          {% get_providers as socialaccount_providers %}
+
+          {% for provider in socialaccount_providers %}
+          {% if provider.id == "openid" %}
+          {% for brand in provider.get_brands %}
             <button style="background-color:#336491; border: #336491; color:white;
             width: 300px;height: 40px;font-size:15px;">
-            <a href="/accounts/google/login/?process=login&{{ redirect_field_name }}={{ redirect_field_value }}"
+            <a title="{{brand.name}}" 
+                class="socialaccount_provider {{provider.id}} {{brand.id}}" 
+                href="{% provider_login_url provider.id openid=brand.openid_url process=process %}"
+            ><i class="fab fa-google"></i>Login with {{brand.name}}</a>
+          </button>>
+          {% endfor %}
+          {% endif %}
+          <button style="background-color:#336491; border: #336491; color:white;
+            width: 300px;height: 40px;font-size:15px;">
+           <a title="{{provider.name}}" class="socialaccount_provider {{provider.id}}" 
+            href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}"
             style="text-decoration: none;color:white">
-              <i class="fab fa-google"></i> Login with Google</a></button>
+            <i class="fab fa-google"></i>&nbsp;&nbsp;Login with{{provider.name}}</a>
+          </button>
+          {% endfor %}
+               
           </div>
-          {% include "socialaccount/snippets/login_extra.html" %}
+          {% load socialaccount %}
+
+          {% providers_media_js %}
 
           {% else %}
           <p>{% blocktrans %}If you have not created an account yet, then please

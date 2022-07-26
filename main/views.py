@@ -7,13 +7,18 @@ from django.views.decorators.http import require_POST
 from django.http import HttpResponse
 import json
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 # Create your views here.
 
 def introduce(request):
     return render(request, 'main/introduce.html')
 
 def movie(request) :
-    posts = Post.objects.all()
+    posts = Post.objects.filter().order_by('-pub_date')
+    paginator = Paginator(posts,6)
+    pagnum = request.GET.get('page')
+    posts = paginator.get_page(pagnum)
+    
     return render(request, 'main/movie.html',{'posts':posts})
 
 

@@ -5,6 +5,7 @@
 .detail h3{
     color: #336491;
     font-size: 20px;
+    font-weight: bold;
     }
 
 .detail h1{
@@ -31,7 +32,9 @@
     position: absolute;
     top: 30px;
     left: 500px;
-    }
+    width: 150px;
+    height: 250px; 
+  }
  
 .detail span {
     display:inline-block;
@@ -263,5 +266,5 @@
     padding: 10px;
     border-radius : 5px;
     width:70%;
-    text-align: left;
+    text-align: center;
 }
