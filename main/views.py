@@ -75,6 +75,23 @@ def create_comment(request, blog_id):
    new_comment.save() 
    return redirect('main:detail', blog_id)
 
+def edit_comment(request, comment_id):
+    edit_comment = Comment.objects.get(id = comment_id)
+    return render(request, 'main/comment_edit.html', {'comment' : edit_comment})
+
+def update_comment(request, comment_id):
+    update_comment = get_object_or_404(Comment, pk = comment_id)
+    update_comment.writer = request.user
+    update_comment.content = request.POST['content']
+    update_comment.save()
+    return redirect('main:detail', update_comment.blog.id)    
+
+def delete_comment(request, comment_id):
+    comment = get_object_or_404(Comment, pk=comment_id)
+    comment.delete()
+    return detail(request, comment.blog.id)
+
+
 @require_POST
 @login_required
 def like_toggle(request, blog_id):
@@ -91,15 +108,6 @@ def like_toggle(request, blog_id):
         "result" : result
     }
     return HttpResponse(json.dumps(context), content_type = "application/json")
-
-
-def my_like(request, user_id):
-    user = User.objects.get(id = user_id)
-    like_list = Like.objects.filter(user = user)
-    context = {
-        'like_list' : like_list,
-    }
-    return render(request, 'main/my_like.html', context)
 
 
 @require_POST

@@ -19,8 +19,10 @@ urlpatterns = [
     path('delete/<int:id>', delete, name="delete"),
     path('post_delete/<int:id>', post_delete, name="post_delete"),
     path('<int:blog_id>/create_comment', create_comment, name="create_comment"),
+    path('<str:comment_id>/edit_comment', edit_comment, name="edit_comment"),
+    path('delete_comment/<int:comment_id>', delete_comment, name='delete_comment'),
+    path('<str:comment_id>/update_comment', update_comment, name="update_comment"),
     path('<int:post_id>/create_comment2', create_comment2, name="create_comment2"),
     path('like_toggle/<int:blog_id>/',like_toggle,name="like_toggle"),
     path('dislike_toggle/<int:blog_id>/',dislike_toggle,name="dislike_toggle"),
-    path('my_like/<int:user_id>',my_like,name='my_like'), 
 ]

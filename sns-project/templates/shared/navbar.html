@@ -1,7 +1,7 @@
 <nav>
     <ul class="nav-container">
       <li class="nav-item"> <a style="font-family:'Staatliches', cursive;
-        text-decoration: none; color:#336491;text-shadow: 3px 3px #97b6d3;font-weight:bolder;font-size:20px;
+        text-decoration: none; color:#336491;text-shadow: 3px 3px #97b6d3;font-weight:bolder;font-size:23px;
         position: fixed;top:23px;left:15px;"  href="{% url 'main:introduce'%}">
         SUYEON'S BLOG</h1></a></li>
       <li class="nav-item"><a style="color:#336491;" href="{% url 'main:introduce' %}#tag1">Information</a></li>
@@ -14,16 +14,22 @@
       </li>
       {% if user.is_authenticated %}
       <li class="nav-item"><a style="color:#336491;" href="{% url 'users:mypage' %}">Mypage</a></li>
-      <li class="nav-item"><h3>{{user.username}}</h3></li>
-      <li class="nav-item"><button type="button" class="btn btn-outline-info">
-        <a href="{% url 'account_logout' %}" style="text-decoration: none;color:black;">로그아웃</li>             
-      </a></button>
+      <li class="nav-item"><a style="position: fixed;top:23px;right:15px;font-size:20px;color:#336491;">{{ user.username }}님
+      &nbsp;&nbsp;&nbsp;</a></li>
+      <li class="nav-item">
+        <a href="{% url 'account_logout' %}" style="text-decoration: none;color:#336491;font-size: 20px;
+        position: fixed;top:23px;right:15px">
+          <i class="fa-solid fa-right-to-bracket"></i></li>             
+      </a>
         
       {% else %}
-      <li class="nav-item"><h4>로그인하세요</h4>
-      </li>
-      <li class="nav-item"><button type="button" class="btn btn-outline-info"><a href="{% url 'account_login' %}" style="text-decoration: none;color:black;">로그인</a></button>
-        <button type="button" class="btn btn-outline-info"><a href="{% url 'account_signup' %}" style="text-decoration: none;color:black;">회원가입</a></button></li>
+      <li class="nav-item">
+        <a href="{% url 'account_login' %}" style="text-decoration: none;font-size:20px;color:#336491;
+        position: fixed;top:23px;right:15px">
+          <i class="fa-solid fa-right-from-bracket"></i></a>
+       <a href="{% url 'account_signup' %}" style="text-decoration: none;color:#336491;font-size:20px;
+       position: fixed;top:23px;right:50px">
+        <i class="fa-solid fa-user-plus"></i></a></li>
       {% endif %}   
     </ul>
   </nav>  

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<center>
+<h4><br><Br><br><br><Br> 댓글 수정하기 </h4>
+<form action="{% url 'main:update_comment' comment.id %}" method="POST" >
+    {%csrf_token%}
+    <p><textarea name="content" id="" cols="30" rows="10" >{{comment.content}}</textarea></p>
+    <button type="submit" style="background-color:#336491; border: #336491; color:white;
+     width: 50px;height: 20px;font-size:13px;">완료</button>
+</form>
+</div>
+</center>
+{% endblock %}

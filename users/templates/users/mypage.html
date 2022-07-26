@@ -2,14 +2,30 @@
 {% load static %}
 {% block content %}
 
+<style>
+    body {
+      background-color:#E8EAF6;
+      font-family:'Gowun Dodum', sans-serif;
+    }
+    </style>
+<center>
 <div class="mypage">
-     <h1>{{user.username}}</h1>
-     <div>
+     <h3><br><br><br>👋{{user.username}}님 안녕하세요👋</h3><Br>
+        <h5>✏ 내가 쓴 글 ✏</h5>
+        <section class="mine">
          {% for blog in blogs %}
-
-         <a href="{% url 'main:detail' blog.id %}">{{blog.title}}</a><hr>
+         <a href="{% url 'main:detail' blog.id %}" style="text-decoration:none;color:black;">{{blog.title}}</a>
 
          {% endfor %}
      </div>
-   
+
+     <br>
+     <h5> ♡ 내가 좋아요 누른 글 ♡ </h5>
+     <section class="mine">
+            {% for like in like_list %}
+            <a href="{% url 'main:detail' like.blog.id %}" style="text-decoration:none;color:black;">{{ like.blog.title }}</a><br>
+            {% endfor %}
+        </div>
+    </div>  
+</center>    
 {% endblock %}

@@ -2,11 +2,18 @@
 
 {% block content %}
 
+<style>
+body {
+  background-color:#E8EAF6;
+}
+</style>
 
 
 <div class="main">
   <center>
-    <h1><br><br><br></h1>
+    <h1><br><br></h1>
+    <p style="font-size:13px;text-align:left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      ❗로그인 후 댓글작성, 글쓰기가 가능합니다❗</p>
   <table class="movie">
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Gaegu&family=Gowun+Dodum&display=swap');
@@ -32,12 +39,14 @@
     </tbody>
   </table>
   </center>
+  {% if user.is_authenticated %}
   <div class="button">
     <button style="background-color:#336491; border: #336491; color:white;
                   width: 80px;height: 40px;font-size:25px; position:relative; top: 20px;left:90%"><a href="{% url 'main:new' %}"
         style="text-decoration: none;color:white; font-family:'Gowun Dodum', sans-serif; font-size:20px;">글쓰기</a></button>
   </div>
+  {% else %}
+  {% endif %}   
+  
+      {% endblock %}
 </div>
-
-
-    {% endblock %}

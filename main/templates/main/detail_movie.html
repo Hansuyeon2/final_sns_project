@@ -2,8 +2,24 @@
 
 {% block content %}
 
+<style>
+    body {
+      background-color:#E8EAF6;
+    }
+    </style>
+    
 <div class="detail">
-    <h3> {{ blog.writer }} </h3> 
+    
+    {% if blog.writer %}
+   {% if 'user' in blog.writer.username %}
+     <h3>{{ blog.writer.last_name }}{{ blog.writer.first_name }}</h3>
+   {% else %}
+      <h3>{{ blog.writer }}</h3>
+   {% endif %}
+{% else %}
+ <h3>알 수 없음</h3>
+ {% endif %}
+
     <h2>날짜 : {{blog.pub_date}}</h2> <br>
     <h1>{{blog.title}}</h1>
     <h2>장르 : {{blog.genre}}</h2>
@@ -14,51 +30,51 @@
         <div class="photo"><img src="{{ blog.image.url }}" alt="사진" width="200" height="300"> </div>
     {% endif %}    
     <p>{{blog.body|linebreaksbr}}</p>
-    <button style="background-color:#336491; border: #336491; color:white; width: 80px;height: 40px;font-size:15px;position:relative;top:50px;" >
+    
+    <span href="#" class="like" name ="{{blog.id}}" value="Like">
+        {% if user in blog.like_user_set.all %}
+            <div class="alt-service-icon">
+                <i class="fas fa-thumbs-up" id ="like-icon" style="color:#F44336;"></i>
+            </div>
+        {% else %}
+            <div class="alt-service-icon">
+                <i class="far fa-thumbs-up" id ="like-icon" style="color:#F44336;"></i>
+            </div>
+        {% endif %}
+            <span id="count-{{ blog.id }}" class="alt-services-title font-alt">
+            {% if blog.like_count == 0 %}
+                0
+            {% else %}
+                {{ blog.like_count }}
+             {% endif %}
+            </span> 
+     </span>
+     <span href="#" class="dislike" name ="{{blog.id}}" value="Dislike" >
+        {% if user in blog.dislike_user_set.all %}
+            <div class="alt-service-icon">&nbsp;&nbsp;
+                <i class="fas fa-thumbs-down" id ="dislike-icon" style="color:#1A2372;"></i>
+            </div>
+        {% else %}
+            <div class="alt-service-icon">&nbsp;&nbsp;
+                <i class="far fa-thumbs-down" id ="dislike-icon" style="color:#1A2372;"></i>
+            </div>
+        {% endif %}
+            <span id="count2-{{ blog.id }}" class="alt-services-title font-alt">
+            {% if blog.dislike_count == 0 %}
+            &nbsp;&nbsp;&nbsp;&nbsp;0
+            {% else %}
+            &nbsp;&nbsp;&nbsp;&nbsp;{{ blog.dislike_count }}
+             {% endif %}
+            </span>
+     </span>
+     {% if user == blog.writer %}
+    <button style="background-color:#336491; border: #336491; color:white; width: 80px;height: 40px;font-size:15px;position:relative;top:0px;left:445px;" >
         <a href="{%url 'main:edit' blog.id%}" style="text-decoration: none;color:white;">수정하기</a></button>
-    <button style="background-color:#336491; border: #336491; color:white; width: 80px;height: 40px;font-size:15px;position:relative;top:50px; left:5px;">
+    <button style="background-color:#336491; border: #336491; color:white; width: 80px;height: 40px;font-size:15px;position:relative;top:0px;left:450px;">
         <a href="{%url 'main:delete' blog.id%}" style="text-decoration: none;color:white;">삭제하기</a></button>
         <h1><br><br></h1>
-
-        <span href="#" class="like" name ="{{blog.id}}" value="Like">
-            {% if user in blog.like_user_set.all %}
-                <div class="alt-service-icon">
-                    <i class="fa-solid fa-thumbs-up" id ="like-icon" style="color:red;"></i>
-                </div>
-            {% else %}
-                <div class="alt-service-icon">
-                    <i class="fa-solid fa-thumbs-up" id ="like-icon" style="color:black;"></i>
-                </div>
-            {% endif %}
-                <span id="count-{{ blog.id }}" class="alt-services-title font-alt">
-                    좋아요
-                {% if blog.like_count == 0 %}
-                    0개
-                {% else %}
-                    {{ blog.like_count }}개
-                 {% endif %}
-                </span> 
-         </span>
-         <span href="#" class="dislike" name ="{{blog.id}}" value="Dislike" >
-            {% if user in blog.dislike_user_set.all %}
-                <div class="alt-service-icon">
-                    <i class="fa-solid fa-thumbs-down" id ="dislike-icon" style="color:blue;"></i>
-                </div>
-            {% else %}
-                <div class="alt-service-icon">
-                    <i class="fa-solid fa-thumbs-down" id ="dislike-icon" style="color:black;"></i>
-                </div>
-            {% endif %}
-                <span id="count2-{{ blog.id }}" class="alt-services-title font-alt">
-                    &nbsp;싫어요
-                {% if blog.dislike_count == 0 %}
-                    0개
-                {% else %}
-                    {{ blog.dislike_count }}개
-                 {% endif %}
-                </span>
-         </span>
-
+    {% endif %}
+{% if user.is_authenticated %}
 <div class="comment">
    <div>
      <form action="{%url 'main:create_comment' blog.id%}" method="POST">
@@ -71,15 +87,35 @@
     <div>
     {% for comment in comments %}
     <div>
-    {{comment.writer}}
+       
+        {% if comment.writer %}
+        {% if 'user' in comment.writer.username %}
+          <div>{{ comment.writer.last_name }}{{ comment.writer.first_name }}</div>
+        {% else %}
+           <div>{{ comment.writer }}</div>
+        {% endif %}
+     {% else %}
+      <div>알 수 없음</div>
+      {% endif %}
+      {% if user == comment.writer %}
+       <a href="{%url 'main:edit_comment' comment.id %}"><i class="fa-solid fa-pen" style="position: relative;top:-23px;left:100px;color:black;">
+    </i></a>
+            <a href="{% url 'main:delete_comment' comment.id %}"><i class="fa-solid fa-trash-can" style="position: relative;top:-23px;left:105px;color:black;">
+
+            </i></a>
+    {% endif %}
     <br>
     {{comment.content}}
-    <br><hr>
-    </div>
+  
+   
+    <hr>
+
     {% endfor %}
     </div>
 
 </div>
+{% else %} 
+{% endif %}
 </div>
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -99,13 +135,13 @@
                 else{
                     if(response.result=='like'){
                        $('#like-icon').removeClass();
-                        $('#like-icon').addClass('fa-solid fa-thumbs-up');
+                        $('#like-icon').addClass('fas fa-thumbs-up');
                     }
                     else{
                          $('#like-icon').removeClass();
-                        $('#like-icon').addClass('fa-solid fa-thumbs-up');
+                        $('#like-icon').addClass('far fa-thumbs-up');
                      }
-                    $('#count-{{blog.id}}').html('좋아요'+response.like_count+"개");
+                    $('#count-{{blog.id}}').html(''+response.like_count+"");
                  }
             },
              error:function(request, status, error){
@@ -131,13 +167,13 @@
                 else{
                     if(response.result=='dislike'){
                        $('#dislike-icon').removeClass();
-                        $('#dislike-icon').addClass('fa-solid fa-thumbs-down');
+                        $('#dislike-icon').addClass('fas fa-thumbs-down');
                     }
                     else{
                          $('#dislike-icon').removeClass();
-                        $('#dislike-icon').addClass('fa-solid fa-thumbs-down');
+                        $('#dislike-icon').addClass('far fa-thumbs-down');
                      }
-                    $('#count2-{{blog.id}}').html('싫어요'+response.dislike_count+"개");
+                    $('#count2-{{blog.id}}').html('&nbsp;&nbsp;&nbsp;&nbsp;'+response.dislike_count+"");
                  }
             },
              error:function(request, status, error){

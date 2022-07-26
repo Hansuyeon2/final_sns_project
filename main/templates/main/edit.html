@@ -2,6 +2,13 @@
 
 {% block content %}
 
+
+<style>
+    body {
+      background-color:#E8EAF6;
+    }
+    </style>
+
 <div class="write">
     <form action="{% url 'main:update' blog.id %}" method="post" enctype="multipart/form-data">
         {%csrf_token%}
