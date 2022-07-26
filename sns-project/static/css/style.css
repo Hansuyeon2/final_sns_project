@@ -111,29 +111,7 @@
     font-weight:bold;
 }
 
-.dropdown-content{
-    position: absolute;
-    display: none;
-    
-}
-.dropdown-content a{
-    padding:12px 16px;
-    text-decoration: none;
-    color:#336491;
-    font-family:'Gowun Dodum', sans-serif;
-    font-size:10px;
-    display: block;
-}
-.dropdown{
-    position: relative;
-    font-family: 'Inconsolata', monospace;
-    font-weight:bold;
-    padding:16px
-}
 
-.dropdown:hover .dropdown-content{
-    display:block;
-}
 
 /*--------------------------------------------------------------
 # 댓글
@@ -150,22 +128,6 @@
     border: 2px solid #000000;
 }
 
-.그림{
-    position:absolute;
-    left:470px;
-    top:150px;
-}
-
-.수련{
-    text-decoration: none;color:#336491;vertical-align: middle;
-    font-family: 'Gowun Dodum', sans-serif;
-}
-
-.수련:hover
-{
-    color:#578BBC;
-    font-family: 'Gowun Dodum', sans-serif;
-}
 
 
 /*--------------------------------------------------------------

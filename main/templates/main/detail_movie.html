@@ -10,29 +10,29 @@
     
 <div class="detail">
     
-    {% if blog.writer %}
-   {% if 'user' in blog.writer.username %}
-     <h3>{{ blog.writer.last_name }}{{ blog.writer.first_name }}</h3>
+    {% if post.writer %}
+   {% if 'user' in post.writer.username %}
+     <h3>{{ post.writer.last_name }}{{ post.writer.first_name }}</h3>
    {% else %}
-      <h3>{{ blog.writer }}</h3>
+      <h3>{{ post.writer }}</h3>
    {% endif %}
 {% else %}
  <h3>알 수 없음</h3>
  {% endif %}
 
-    <h2>날짜 : {{blog.pub_date}}</h2> <br>
-    <h1>{{blog.title}}</h1>
-    <h2>장르 : {{blog.genre}}</h2>
-    <h2>평점:{{blog.test_list}}</h2>
-    <h2>한줄평 : {{blog.summary}}</h2>
+    <h2>날짜 : {{post.pub_date}}</h2> <br>
+    <h1>{{post.title}}</h1>
+    <h2>장르 : {{post.genre}}</h2>
+    <h2>평점:{{post.test_list}}</h2>
+    <h2>한줄평 : {{post.summary}}</h2>
  
-    {% if blog.image %}
-        <div class="photo"><img src="{{ blog.image.url }}" alt="사진" width="200" height="300"> </div>
+    {% if post.image %}
+        <div class="photo"><img src="{{ post.image.url }}" alt="사진" width="200" height="300"> </div>
     {% endif %}    
-    <p>{{blog.body|linebreaksbr}}</p>
+    <p>{{post.body|linebreaksbr}}</p>
     
-    <span href="#" class="like" name ="{{blog.id}}" value="Like">
-        {% if user in blog.like_user_set.all %}
+    <span href="#" class="like" name ="{{post.id}}" value="Like">
+        {% if user in post.like_user_set.all %}
             <div class="alt-service-icon">
                 <i class="fas fa-thumbs-up" id ="like-icon" style="color:#F44336;"></i>
             </div>
@@ -41,16 +41,16 @@
                 <i class="far fa-thumbs-up" id ="like-icon" style="color:#F44336;"></i>
             </div>
         {% endif %}
-            <span id="count-{{ blog.id }}" class="alt-services-title font-alt">
-            {% if blog.like_count == 0 %}
+            <span id="count-{{ post.id }}" class="alt-services-title font-alt">
+            {% if post.like_count == 0 %}
                 0
             {% else %}
-                {{ blog.like_count }}
+                {{ post.like_count }}
              {% endif %}
             </span> 
      </span>
-     <span href="#" class="dislike" name ="{{blog.id}}" value="Dislike" >
-        {% if user in blog.dislike_user_set.all %}
+     <span href="#" class="dislike" name ="{{post.id}}" value="Dislike" >
+        {% if user in post.dislike_user_set.all %}
             <div class="alt-service-icon">&nbsp;&nbsp;
                 <i class="fas fa-thumbs-down" id ="dislike-icon" style="color:#1A2372;"></i>
             </div>
@@ -59,25 +59,27 @@
                 <i class="far fa-thumbs-down" id ="dislike-icon" style="color:#1A2372;"></i>
             </div>
         {% endif %}
-            <span id="count2-{{ blog.id }}" class="alt-services-title font-alt">
-            {% if blog.dislike_count == 0 %}
+            <span id="count2-{{ post.id }}" class="alt-services-title font-alt">
+            {% if post.dislike_count == 0 %}
             &nbsp;&nbsp;&nbsp;&nbsp;0
             {% else %}
-            &nbsp;&nbsp;&nbsp;&nbsp;{{ blog.dislike_count }}
+            &nbsp;&nbsp;&nbsp;&nbsp;{{ post.dislike_count }}
              {% endif %}
             </span>
-     </span>
-     {% if user == blog.writer %}
-    <button style="background-color:#336491; border: #336491; color:white; width: 80px;height: 40px;font-size:15px;position:relative;top:0px;left:445px;" >
-        <a href="{%url 'main:edit' blog.id%}" style="text-decoration: none;color:white;">수정하기</a></button>
-    <button style="background-color:#336491; border: #336491; color:white; width: 80px;height: 40px;font-size:15px;position:relative;top:0px;left:450px;">
-        <a href="{%url 'main:delete' blog.id%}" style="text-decoration: none;color:white;">삭제하기</a></button>
+     </span> <br><br>
+     {% if user == post.writer %}
+    <button style="background-color:#336491; border: #336491; color:white; width: 80px;height: 40px;font-size:15px;
+    " >
+        <a href="{%url 'main:edit' post.id%}" style="text-decoration: none;color:white;">수정하기</a></button>
+    <button style="background-color:#336491; border: #336491; color:white; width: 80px;height: 40px;font-size:15px;
+   ">
+        <a href="{%url 'main:delete' post.id%}" style="text-decoration: none;color:white;">삭제하기</a></button>
         <h1><br><br></h1>
     {% endif %}
 {% if user.is_authenticated %}
 <div class="comment">
    <div>
-     <form action="{%url 'main:create_comment' blog.id%}" method="POST">
+     <form action="{%url 'main:create_comment' post.id%}" method="POST">
       {%csrf_token%}
       <textarea name="content" placeholder="댓글내용입력" style="width:800px;height:90px;border: 2px solid #000000;" ></textarea>
       <input type="submit" value="확인" style="background-color:#336491; border: #336491; color:white; width: 80px;height: 40px;font-size:15px; position:relative; left:30px; top:-10px">
@@ -124,7 +126,7 @@
         var pk=$(this).attr('name')
         $.ajax({
              type:'POST',
-            url:"{% url 'main:like_toggle' blog.pk %}",
+            url:"{% url 'main:like_toggle' post.pk %}",
             data:{'pk':pk,'csrfmiddlewaretoken':'{{csrf_token}}'},
             dataType:'json',
             success:function(response){
@@ -141,7 +143,7 @@
                          $('#like-icon').removeClass();
                         $('#like-icon').addClass('far fa-thumbs-up');
                      }
-                    $('#count-{{blog.id}}').html(''+response.like_count+"");
+                    $('#count-{{post.id}}').html(''+response.like_count+"");
                  }
             },
              error:function(request, status, error){
@@ -156,7 +158,7 @@
         var pk=$(this).attr('name')
         $.ajax({
              type:'POST',
-            url:"{% url 'main:dislike_toggle' blog.pk %}",
+            url:"{% url 'main:dislike_toggle' post.pk %}",
             data:{'pk':pk,'csrfmiddlewaretoken':'{{csrf_token}}'},
             dataType:'json',
             success:function(response){
@@ -173,7 +175,7 @@
                          $('#dislike-icon').removeClass();
                         $('#dislike-icon').addClass('far fa-thumbs-down');
                      }
-                    $('#count2-{{blog.id}}').html('&nbsp;&nbsp;&nbsp;&nbsp;'+response.dislike_count+"");
+                    $('#count2-{{post.id}}').html('&nbsp;&nbsp;&nbsp;&nbsp;'+response.dislike_count+"");
                  }
             },
              error:function(request, status, error){

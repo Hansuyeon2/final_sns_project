@@ -13,67 +13,64 @@ def introduce(request):
     return render(request, 'main/introduce.html')
 
 def movie(request) :
-    blogs = Blog.objects.all()
-    return render(request, 'main/movie.html',{'blogs':blogs})
-
-def picture(request) :
     posts = Post.objects.all()
-    return render(request, 'main/picture.html',{'posts':posts})
+    return render(request, 'main/movie.html',{'posts':posts})
+
 
 # movie ---------------------
 
 def detail(request, id):
-    blog = get_object_or_404(Blog, pk = id)
-    all_comments = blog.comments.all().order_by('-created_at')
-    return render(request, 'main/detail_movie.html', {'blog':blog, 'comments':all_comments})
+    post = get_object_or_404(Post, pk = id)
+    all_comments = post.comments.all().order_by('-created_at')
+    return render(request, 'main/detail_movie.html', {'post':post, 'comments':all_comments})
     
 def new(request) :
     return render(request, 'main/new_movie.html')
 
 
 def create(request):
-    new_blog = Blog()
-    new_blog.title = request.POST['title']
-    new_blog.writer = request.user
-    new_blog.pub_date = timezone.now()
-    new_blog.test_list = request.POST.getlist('test_list')
-    new_blog.body = request.POST['body']
-    new_blog.image = request.FILES.get('image')
-    new_blog.genre = request.POST['genre']
-    new_blog.summary = request.POST['summary']
-    new_blog.save()
+    new_post = Post()
+    new_post.title = request.POST['title']
+    new_post.writer = request.user
+    new_post.pub_date = timezone.now()
+    new_post.test_list = request.POST.getlist('test_list')
+    new_post.body = request.POST['body']
+    new_post.image = request.FILES.get('image')
+    new_post.genre = request.POST['genre']
+    new_post.summary = request.POST['summary']
+    new_post.save()
 
-    return redirect('main:detail',new_blog.id)
+    return redirect('main:detail',new_post.id)
 
 def edit(request, id) :
-    edit_blog = Blog.objects.get(id = id)
-    return render(request, 'main/edit.html', {'blog' : edit_blog})
+    edit_post = Post.objects.get(id = id)
+    return render(request, 'main/edit.html', {'post' : edit_post})
 
 def update(request, id):
-    update_blog = Blog.objects.get(id=id)
-    update_blog.title = request.POST['title']
-    update_blog.writer = request.user
-    update_blog.pub_date = timezone.now()
-    update_blog.body = request.POST['body']
-    update_blog.image = request.FILES.get('image')
-    update_blog.test_list = request.POST.getlist('test_list')
-    update_blog.genre = request.POST['genre']
-    update_blog.summary = request.POST['summary']
-    update_blog.save()
-    return redirect('main:detail', update_blog.id)
+    update_post = Post.objects.get(id=id)
+    update_post.title = request.POST['title']
+    update_post.writer = request.user
+    update_post.pub_date = timezone.now()
+    update_post.body = request.POST['body']
+    update_post.image = request.FILES.get('image')
+    update_post.test_list = request.POST.getlist('test_list')
+    update_post.genre = request.POST['genre']
+    update_post.summary = request.POST['summary']
+    update_post.save()
+    return redirect('main:detail', update_post.id)
 
 def delete(request, id) :
-    delete_blog = Blog.objects.get(id = id)
-    delete_blog.delete()
+    delete_post = Post.objects.get(id = id)
+    delete_post.delete()
     return redirect('main:movie')
 
-def create_comment(request, blog_id):
+def create_comment(request, post_id):
    new_comment = Comment()
    new_comment.writer = request.user
    new_comment.content = request.POST['content']
-   new_comment.blog = get_object_or_404(Blog, pk = blog_id)
+   new_comment.post = get_object_or_404(Post, pk = post_id)
    new_comment.save() 
-   return redirect('main:detail', blog_id)
+   return redirect('main:detail', post_id)
 
 def edit_comment(request, comment_id):
     edit_comment = Comment.objects.get(id = comment_id)
@@ -84,27 +81,27 @@ def update_comment(request, comment_id):
     update_comment.writer = request.user
     update_comment.content = request.POST['content']
     update_comment.save()
-    return redirect('main:detail', update_comment.blog.id)    
+    return redirect('main:detail', update_comment.post.id)    
 
 def delete_comment(request, comment_id):
     comment = get_object_or_404(Comment, pk=comment_id)
     comment.delete()
-    return detail(request, comment.blog.id)
+    return detail(request, comment.post.id)
 
 
 @require_POST
 @login_required
-def like_toggle(request, blog_id):
-    blog = get_object_or_404(Blog, pk = blog_id)
-    blog_like, blog_like_created = Like.objects.get_or_create(user=request.user, blog=blog)
+def like_toggle(request, post_id):
+    post = get_object_or_404(Post, pk = post_id)
+    post_like, post_like_created = Like.objects.get_or_create(user=request.user, post=post)
 
-    if not blog_like_created:
-        blog_like.delete()
+    if not post_like_created:
+        post_like.delete()
         result = "like_cancel"
     else:
         result = "like"
     context = {
-        "like_count" : blog.like_count,
+        "like_count" : post.like_count,
         "result" : result
     }
     return HttpResponse(json.dumps(context), content_type = "application/json")
@@ -112,65 +109,20 @@ def like_toggle(request, blog_id):
 
 @require_POST
 @login_required
-def dislike_toggle(request, blog_id):
-    blog = get_object_or_404(Blog, pk = blog_id)
-    blog_dislike, blog_dislike_created = Dislike.objects.get_or_create(user=request.user, blog=blog)
+def dislike_toggle(request, post_id):
+    post = get_object_or_404(Post, pk = post_id)
+    post_dislike, post_dislike_created = Dislike.objects.get_or_create(user=request.user, post=post)
 
-    if not blog_dislike_created:
-        blog_dislike.delete()
+    if not post_dislike_created:
+        post_dislike.delete()
         result = "dislike_cancel"
     else:
         result = "dislike"
     context = {
-        "dislike_count" : blog.dislike_count,
+        "dislike_count" : post.dislike_count,
         "result" : result
     }
     return HttpResponse(json.dumps(context), content_type = "application/json")
 
-#picture ---------------------
 
-def post_detail(request, id):
-    post = get_object_or_404(Post, pk = id)
-    all_comment2s = post.comment2s.all().order_by('-created_at')
-    return render(request, 'main/detail_picture.html', {'post':post, 'comment2s':all_comment2s})
-   
-def post_new(request) :
-    return render(request, 'main/new_picture.html')
-
-def post_create(request):
-    new_post = Post()
-    new_post.title = request.POST['title']
-    new_post.writer = request.user
-    new_post.pub_date = timezone.now()
-    new_post.body = request.POST['body']
-    new_post.image = request.FILES.get('image')
-    new_post.save()
-    return redirect('main:post_detail',new_post.id)
-
-def post_edit(request, id) :
-    edit_post = Post.objects.get(id = id)
-    return render(request, 'main/picture_edit.html', {'post' : edit_post})
-
-def post_update(request, id):
-    update_post = Post.objects.get(id=id)
-    update_post.title = request.POST['title']
-    update_post.writer = request.user
-    update_post.pub_date = timezone.now()
-    update_post.body = request.POST['body']
-    update_post.image = request.FILES.get('image')
-    update_post.save()
-    return redirect('main:post_detail', update_post.id)
-
-def post_delete(request, id) :
-    delete_post = Post.objects.get(id = id)
-    delete_post.delete()
-    return redirect('main:picture')
-
-def create_comment2(request, post_id):
-   new_comment2 = Comment2()
-   new_comment2.writer = request.user
-   new_comment2.content = request.POST['content']
-   new_comment2.post = get_object_or_404(Post, pk = post_id)
-   new_comment2.save() 
-   return redirect('main:post_detail', post_id)
 

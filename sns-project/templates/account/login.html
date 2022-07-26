@@ -1,47 +1,63 @@
-{% extends "account/base.html" %}
+{% extends "base.html" %}
 
 {% load i18n %}
 {% load account socialaccount %}
-{% providers_media_js %}
 
-{% block head_title %}{% trans "Sign In" %}{% endblock %}
+{% block head_title %}{% trans "Log In" %}{% endblock %}
 
 {% block content %}
 
-<h1>{% trans "Sign In" %}</h1>
+<style>
+  body {
+    background-color:#E8EAF6;
+  }
+  </style>
+  
 
-{% get_providers as socialaccount_providers %}
+<br><br>
+<div class="container" style="height:100vh">
+  <div class="row justify-content-center h-100">
+      <div class="col align-self-center text-center card text-balack bg-jellyho my-3" style="max-width: 25rem;">
+        <br>
+       <h1 style="font-family: 'Staatliches', cursive;color:#336491;">SUYEON'S BLOG</h1>
+        <div class="card-body">
 
-{% if socialaccount_providers %}
-<p>{% blocktrans with site.name as site_name %}Please sign in with one
-of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
-for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
+          {% get_providers as socialaccount_providers %}
 
-<div class="socialaccount_ballot">
+          
+          <form class="login" method="POST" action="{% url 'account_login' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+           <div style="float:center;">
+            <button class="primaryAction" type="submit" 
+            style="background-color:#336491; border: #336491; color:white;
+            width: 60px;height: 20px;font-size:11px;">로그인</button>
+          </form>
 
-  <ul class="socialaccount_providers">
-    {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-  </ul>
+          <button class="primaryAction" type="submit"
+          style="background-color:#336491; border: #336491; color:white;
+          width: 60px;height: 20px;font-size:11px;"><a href="{{ signup_url }}" style="text-decoration:none;color:white">회원가입</a></button>
+          </div>
+          {% if socialaccount_providers %}
 
-  <div class="login-or">{% trans 'or' %}</div>
+          <div class="my-2">
+            <button style="background-color:#336491; border: #336491; color:white;
+            width: 300px;height: 40px;font-size:15px;">
+            <a href="/accounts/google/login/?process=login&{{ redirect_field_name }}={{ redirect_field_value }}"
+            style="text-decoration: none;color:white">
+              <i class="fab fa-google"></i> Login with Google</a></button>
+          </div>
+          {% include "socialaccount/snippets/login_extra.html" %}
 
+          {% else %}
+          <p>{% blocktrans %}If you have not created an account yet, then please
+          <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
+          {% endif %}
+        </div>
+    </div>
+  </div>
 </div>
-
-{% include "socialaccount/snippets/login_extra.html" %}
-
-{% else %}
-<p>{% blocktrans %}If you have not created an account yet, then please
-<a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
-{% endif %}
-
-<form class="login" method="POST" action="{% url 'account_login' %}">
-  {% csrf_token %}
-  {{ form.as_p }}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-  <button class="primaryAction" type="submit">{% trans "Sign In" %}</button>
-</form>
-
 {% endblock %}

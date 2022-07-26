@@ -13,19 +13,19 @@
      <h3><br><br><br>👋{{user.username}}님 안녕하세요👋</h3><Br>
         <h5>✏ 내가 쓴 글 ✏</h5>
         <section class="mine">
-         {% for blog in blogs %}
-         <a href="{% url 'main:detail' blog.id %}" style="text-decoration:none;color:black;">{{blog.title}}</a>
+         {% for post in posts %}
+         <a href="{% url 'main:detail' post.id %}" style="text-decoration:none;color:black;">{{post.title}}</a><br>
 
          {% endfor %}
-     </div>
+        </section>
 
      <br>
      <h5> ♡ 내가 좋아요 누른 글 ♡ </h5>
      <section class="mine">
             {% for like in like_list %}
-            <a href="{% url 'main:detail' like.blog.id %}" style="text-decoration:none;color:black;">{{ like.blog.title }}</a><br>
+            <a href="#" style="text-decoration:none;color:black;">{{ like.post.title }}</a><br>
             {% endfor %}
-        </div>
+     </section>
     </div>  
 </center>    
 {% endblock %}

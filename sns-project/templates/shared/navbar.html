@@ -6,12 +6,7 @@
         SUYEON'S BLOG</h1></a></li>
       <li class="nav-item"><a style="color:#336491;" href="{% url 'main:introduce' %}#tag1">Information</a></li>
       <li class="nav-item"><a style="color:#336491;" href="{% url 'main:introduce' %}#tag2">Favorites</a></li>
-      <li class="dropdown"><a style="color:#336491;">Posts</a>
-        <div class="dropdown-content">
-        <a href="{% url 'main:movie' %}">영화</a>
-        <a href="{% url 'main:picture' %}">여행</a>
-        </div>
-      </li>
+      <li class="nav-item"><a style="color:#336491;" href="{% url 'main:movie' %}#tag1">Posts</a></li>
       {% if user.is_authenticated %}
       <li class="nav-item"><a style="color:#336491;" href="{% url 'users:mypage' %}">Mypage</a></li>
       <li class="nav-item"><a style="position: fixed;top:23px;right:15px;font-size:20px;color:#336491;">{{ user.username }}님

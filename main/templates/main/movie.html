@@ -12,6 +12,8 @@ body {
 <div class="main">
   <center>
     <h1><br><br></h1>
+    <h3 style="text-align: left;font-family: 'Gowun Dodum', sans-serif;font-weight: bolder;color:#336491;">&nbsp;&nbsp;&nbsp;&nbsp;
+    영화 리뷰</h3>
     <p style="font-size:13px;text-align:left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       ❗로그인 후 댓글작성, 글쓰기가 가능합니다❗</p>
   <table class="movie">
@@ -27,13 +29,13 @@ body {
       </tr>
     </thead>
     <tbody>
-      {% for blog in blogs %}
+      {% for post in posts %}
       <tr>
-        <td class="제목"><a href="{% url 'main:detail' blog.id %}"
-            style="text-decoration: none;color:black;">{{blog.title}}</a></td>
-        <td class="장르">{{blog.genre}}</td>    
-        <td class="평점">{{blog.test_list}}</td>
-        <td class="한줄평">{{blog.summary}}</td>
+        <td class="제목"><a href="{% url 'main:detail' post.id %}"
+            style="text-decoration: none;color:black;">{{post.title}}</a></td>
+        <td class="장르">{{post.genre}}</td>    
+        <td class="평점">{{post.test_list}}</td>
+        <td class="한줄평">{{post.summary}}</td>
       </tr>
       {%endfor%}
     </tbody>
