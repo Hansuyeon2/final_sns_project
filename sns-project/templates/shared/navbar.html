@@ -8,7 +8,7 @@
       <li class="nav-item"><a style="color:#336491;" href="{% url 'main:introduce' %}#tag2">Favorites</a></li>
       <li class="nav-item"><a style="color:#336491;" href="{% url 'main:movie' %}#tag1">Posts</a></li>
       {% if user.is_authenticated %}
-      <li class="nav-item"><a style="color:#336491;" href="{% url 'users:mypage' %}">Mypage</a></li>
+      <li class="nav-item"><a style="color:#336491;" href="{% url 'users:mypage' request.user.id %}">Mypage</a></li>
       <li class="nav-item"><a style="position: fixed;top:23px;right:15px;font-size:20px;color:#336491;">{{ user.username }}님
       &nbsp;&nbsp;&nbsp;</a></li>
       <li class="nav-item">

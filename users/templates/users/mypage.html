@@ -10,8 +10,26 @@
     </style>
 <center>
 <div class="mypage">
-     <h3><br><br><br>👋{{user.username}}님 안녕하세요👋</h3><Br>
-        <h5>✏ 내가 쓴 글 ✏</h5>
+     <h3><br><br><br>{{user.username}}
+      {% if request.user != user %}
+        {% if request.user.profile in user.profile.followers.all %}
+            <a href="{% url 'users:follow' user.id %}"><button type="button" class="btn btn-outline-info">언팔로우</button></a>
+        {% else %}
+            <a href="{% url 'users:follow' user.id %}"><button type="button" class="btn btn-info">팔로우</button></a>
+        {% endif %}
+      {% endif %}     </h3>  
+      <h5> 팔로워 {{ user.profile.followers.count }} 명 :
+      {%for follower in user.profile.followers.all %}
+          <a href="{% url 'users:mypage' follower.user.id %}"
+          style="text-decoration:none;color:black;">{{ follower.user.username }}</a>
+      {% endfor %}<br>
+
+      팔로잉 {{ user.profile.followings.count }} 명 :
+      {% for following in user.profile.followings.all %}
+          <a href="{%url 'users:mypage' following.user.id %}"
+          style="text-decoration:none;color:black;">{{ following.user.username }}</a>
+      {% endfor %}</h5>
+        <h5>✏ 작성한 글 ✏</h5>
         <section class="mine">
          {% for post in posts %}
          <a href="{% url 'main:detail' post.id %}" style="text-decoration:none;color:black;">{{post.title}}</a><br>
@@ -20,7 +38,7 @@
         </section>
 
      <br>
-     <h5> ♡ 내가 좋아요 누른 글 ♡ </h5>
+     <h5> ♡ 좋아요 누른 글 ♡ </h5>
      <section class="mine">
             {% for like in like_list %}
             <a href="{% url 'main:detail' like.post.id %}" style="text-decoration:none;color:black;">{{ like.post.title }}</a><br>
